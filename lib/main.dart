@@ -1,21 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
+import 'splash.dart';
 
 void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "flutter demo",
-      theme: ThemeData(
-          primarySwatch: Colors.indigo, scaffoldBackgroundColor: Colors.black),
-      home: HomePage(),
-    );
-  }
+  runApp(MaterialApp(
+    home: Splash(),
+    debugShowCheckedModeBanner: false,
+  ));
 }
 
 class HomePage extends StatefulWidget {
@@ -26,76 +17,51 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int firstnum = 0;
-  int secondnum = 0;
-  String texttodisplay = "";
-  String display = "";
+  double firstnum = 0.0;
+  double secondnum = 0.0;
+  var input = '';
+  var output = '';
+  var operation = '';
 
-  String res = "";
-  String? oprationperform;
-
-  void btnclick(String btnval) {
-    if (btnval == "AC") {
-      display = "";
-      texttodisplay = "";
-      firstnum = 0;
-      secondnum = 0;
-      res = "";
-    } else if (btnval == "DEL") {
-      res = res.substring(0, res.length - 1);
-      display = display.substring(0, display.length - 1);
-    } else if (btnval == "+" ||
-        btnval == "-" ||
-        btnval == "x" ||
-        btnval == "/" ||
-        btnval == "%") {
-      firstnum = int.parse(texttodisplay);
-      res = "";
-      oprationperform = btnval;
-    } else if (btnval == "=") {
-      secondnum = int.parse(texttodisplay);
-
-      if (oprationperform == "+") {
-        res = (firstnum + secondnum).toString();
-      }
-      if (oprationperform == "-") {
-        res = (firstnum - secondnum).toString();
-      }
-      if (oprationperform == "x") {
-        res = (firstnum * secondnum).toString();
-      }
-      if (oprationperform == "/") {
-        res = (firstnum / secondnum).toString();
-      }
-      if (oprationperform == "%") {
-        res = ((firstnum * secondnum) / 100).toString();
+  onButtonClick(value) {
+    if (value == 'AC') {
+      input = '';
+      output = '';
+    } else if (value == 'DEL') {
+      input = input.substring(0, input.length - 1);
+    } else if (value == '=') {
+      var userInput = input;
+      userInput = input.replaceAll('x', '*');
+      Parser p = Parser();
+      Expression expression = p.parse(userInput);
+      ContextModel cm = ContextModel();
+      var FinalValue = expression.evaluate(EvaluationType.REAL, cm);
+      output = FinalValue.toString();
+      if (output.endsWith(".0")) {
+        output = output.substring(0, output.length - 2);
       }
     } else {
-      res = int.parse(texttodisplay + btnval).toString();
+      input = input + value;
     }
-    if (btnval != "DEL" && btnval != "AC" && btnval != "=")
-      display = display + btnval;
-    setState(() {
-      texttodisplay = res;
-    });
 
     setState(() {});
   }
 
-  Widget custombutton(String btnval) {
+  Widget custombutton(String text) {
     return Expanded(
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.all(25.0),
           backgroundColor: Colors.black,
+          onPrimary: Colors.pink,
           side: BorderSide(
             width: 2,
             color: Colors.grey,
           ),
         ),
-        onPressed: () => btnclick(btnval),
+        onPressed: () => onButtonClick(text),
         child: Text(
-          "$btnval",
+          text,
           style: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.w900,
@@ -110,77 +76,98 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text(
-          "calculator",
+          "CALCULATOR",
         ),
       ),
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
+            Text(
+              "-:INPUTS:-",
+              style: TextStyle(color: Colors.cyan),
+            ),
             Expanded(
               child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 6, color: Colors.cyan),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 padding: EdgeInsets.all(10.0),
                 alignment: Alignment.bottomRight,
                 child: Text(
-                  "$display",
+                  input,
                   style: TextStyle(
-                    fontSize: 80.0,
+                    fontSize: 50.0,
                     color: Colors.green,
                   ),
                 ),
               ),
             ),
+            Text(
+              "-:RESULT:-",
+              style: TextStyle(
+                color: Colors.green,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
             Expanded(
               child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(width: 6, color: Colors.green),
+                    borderRadius: BorderRadius.circular(10.0)),
                 padding: EdgeInsets.all(10.0),
                 alignment: Alignment.bottomRight,
                 child: Text(
-                  "$res",
+                  output,
                   style: TextStyle(
-                    fontSize: 80.0,
+                    fontSize: 70.0,
                     color: Colors.green,
                   ),
                 ),
               ),
             ),
+            Text("--------------"),
             Row(
               children: <Widget>[
+                custombutton("%"),
                 custombutton("AC"),
                 custombutton("DEL"),
-                custombutton("%"),
                 custombutton("/"),
               ],
             ),
             Row(
               children: <Widget>[
-                custombutton("9"),
-                custombutton("8"),
                 custombutton("7"),
+                custombutton("8"),
+                custombutton("9"),
                 custombutton("+"),
               ],
             ),
             Row(
               children: <Widget>[
-                custombutton("6"),
-                custombutton("5"),
                 custombutton("4"),
+                custombutton("5"),
+                custombutton("6"),
                 custombutton("-"),
               ],
             ),
             Row(
               children: <Widget>[
-                custombutton("3"),
-                custombutton("2"),
                 custombutton("1"),
+                custombutton("2"),
+                custombutton("3"),
                 custombutton("x"),
               ],
             ),
             Row(
               children: <Widget>[
-                custombutton("."),
                 custombutton("0"),
+                custombutton("."),
+                custombutton("00"),
                 custombutton("="),
               ],
             ),
