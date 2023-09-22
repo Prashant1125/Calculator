@@ -3,7 +3,7 @@ import 'package:math_expressions/math_expressions.dart';
 import 'splash.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: Splash(),
     debugShowCheckedModeBanner: false,
   ));

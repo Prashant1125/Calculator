@@ -11,9 +11,9 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 2)).whenComplete(
+    Future.delayed(const Duration(seconds: 2)).whenComplete(
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => HomePage(),
+              builder: (context) => const HomePage(),
             )));
     super.initState();
   }
@@ -22,7 +22,10 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset("assets\icons\pk2.jpg"),
+        child: Image.asset(
+          "assets/icons/pk3.jpg",
+          width: 1000,
+        ),
       ),
     );
   }
