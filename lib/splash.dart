@@ -49,9 +49,11 @@ class _SplashState extends State<Splash> {
           const Text(
             "Do \nYour Calculations",
             textAlign: TextAlign.center,
+            
             style: TextStyle(
                 color: Color.fromARGB(255, 2, 77, 4),
                 fontFamily: "times new roman",
+                
                 fontSize: 30,
                 fontWeight: FontWeight.bold),
           ),
