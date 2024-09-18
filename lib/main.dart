@@ -1,7 +1,5 @@
-import 'package:calculator/about.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
-import 'contact.dart';
 import 'splash.dart';
 import 'dart:io';
 
@@ -85,32 +83,6 @@ class _HomePageState extends State<HomePage> {
         title: const Text(
           "CALCULATOR",
         ),
-        actions: [
-          PopupMenuButton(
-            itemBuilder: (context) {
-              return [
-                const PopupMenuItem<int>(
-                  value: 0,
-                  child: Text("Contact Us"),
-                ),
-                const PopupMenuItem<int>(
-                  value: 1,
-                  child: Text("About "),
-                ),
-              ];
-            },
-            onSelected: (value) {
-              if (value == 0) {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const Contact()));
-              }
-              if (value == 1) {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const AboutPage()));
-              }
-            },
-          ),
-        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
