@@ -87,50 +87,66 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          const Text(
-            "-:INPUTS:-",
-            style: TextStyle(color: Colors.cyan),
-          ),
           Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(width: 6, color: Colors.cyan),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              padding: const EdgeInsets.all(10.0),
-              alignment: Alignment.bottomRight,
-              child: Text(
-                input,
-                style: const TextStyle(
-                  fontSize: 50.0,
-                  color: Colors.green,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 2),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: Colors.cyan),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: const EdgeInsets.all(10.0),
+                alignment: Alignment.bottomRight,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        output,
+                        style: const TextStyle(
+                          fontSize: 40,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        input,
+                        style: const TextStyle(
+                          fontSize: 25.0,
+                          color: Colors.cyan,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-          const Text(
-            "-:RESULT:-",
-            style: TextStyle(
-              color: Colors.green,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(width: 6, color: Colors.green),
-                  borderRadius: BorderRadius.circular(10.0)),
-              padding: const EdgeInsets.all(10.0),
-              alignment: Alignment.bottomRight,
-              child: Text(
-                output,
-                style: const TextStyle(
-                  fontSize: 70.0,
-                  color: Colors.green,
-                ),
-              ),
-            ),
-          ),
+          // const Text(
+          //   "-:RESULT:-",
+          //   style: TextStyle(
+          //     color: Colors.green,
+          //     fontWeight: FontWeight.w500,
+          //   ),
+          // ),
+          // Expanded(
+          //   child: Container(
+          //     decoration: BoxDecoration(
+          //         border: Border.all(width: 1, color: Colors.green),
+          //         borderRadius: BorderRadius.circular(10.0)),
+          //     padding: const EdgeInsets.all(10.0),
+          //     alignment: Alignment.bottomRight,
+          //     child: Text(
+          //       output,
+          //       style: const TextStyle(
+          //         fontSize: 70.0,
+          //         color: Colors.green,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           const Text("--------------"),
           Row(
             children: <Widget>[
